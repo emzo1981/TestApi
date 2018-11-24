@@ -20,28 +20,16 @@ namespace TestApi.Services
             FixerKey = configuration.GetValue<string>("FixerKey");
             _apiClient = apiClient;
         }
-        public async Task<Currency> GetLatest(string symbols,string from)
+        public async Task<ApiResponse> GetLatest(string symbols,string from)
         {
-            string uri = $"http://data.fixer.io/api/latest?access_key={FixerKey}&symbols={symbols}&base={from}";
-            var result = await _apiClient.GetAsync<ApiResponse>(new Uri($"http://data.fixer.io/api/latest?access_key={FixerKey}&symbols={symbols}&base={from}"));            
-            var currency = Mapper.Map<Currency>(result);
-            return currency;
-
+            var uri = _apiClient.CreateRequestUri("latest", $"access_key={FixerKey}&symbols={symbols}&base={from}");
+            return await _apiClient.GetAsync<ApiResponse>(uri);
         }     
 
-        public async Task<List<Currency>> GetHistoricalValues(string from, string to)
+        public async Task<ApiResponse> GetHistoricalValues(string from, string to, DateTime date )
         {
-            var _date = DateTime.Now.ToShortDateString();
-            var CurrencyList = new List<Currency>();
-            for (int i = 1; i <= 7; i++)
-            {
-                var result = await _apiClient.GetAsync<ApiResponse>(new Uri($"http://data.fixer.io/api/{_date}?access_key={FixerKey}&symbols={to}&base={from}"));
-                var currency = Mapper.Map<Currency>(result);
-                CurrencyList.Add(currency);
-                _date = DateTime.Now.AddDays(-i).ToShortDateString();
-            }
-           
-            return CurrencyList;
+            var uri = _apiClient.CreateRequestUri($"{date.ToShortDateString()}", $"access_key={FixerKey}&symbols={to}&base={from}");
+            return await _apiClient.GetAsync<ApiResponse>(uri);           
         }
     }
 }

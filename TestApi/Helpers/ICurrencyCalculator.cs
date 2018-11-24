@@ -8,7 +8,7 @@ namespace TestApi.Helpers
 {
     public interface ICurrencyCalculator
     {
-        IEnumerable<CurrencyRateExchangeResponse> CalculateRates(Currency currency, decimal amount);
+        IEnumerable<CurrencyRateExchangeResponse> CalculateAmountValues(Currency currency, decimal amount);
 
         decimal CalculateAverages(List<Currency> currencies);
         decimal CalculateMinimum(List<Currency> currencies);

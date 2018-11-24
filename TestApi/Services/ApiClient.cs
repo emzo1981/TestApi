@@ -14,8 +14,8 @@ namespace TestApi.Services
         private Uri BaseEndpoint { get; set; }
 
         public ApiClient(IConfiguration configuration)
-        {       
-           
+        {
+            BaseEndpoint = new Uri("http://data.fixer.io/api/");
             _httpClient = new HttpClient();
         }
         public async Task<T> GetAsync<T>(Uri requestUrl)
@@ -25,7 +25,7 @@ namespace TestApi.Services
             var data = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject< T>(data);
         }
-        private Uri CreateRequestUri(string relativePath, string queryString = "")
+        public Uri CreateRequestUri(string relativePath, string queryString = "")
         {
             var endpoint = new Uri(BaseEndpoint, relativePath);
             var uriBuilder = new UriBuilder(endpoint);

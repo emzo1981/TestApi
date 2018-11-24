@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestApi</name>
+    </assembly>
+    <members>
+        <member name="M:TestApi.Controllers.IndexController.GetLatest(System.String,System.String,System.String)">
+            <summary>
+            convert any amount from one currency to another currencies 
+            </summary>
+            <param name="symbols">symbols of currencies separated with , </param>    
+            <param name="amount">amount to convert</param>    
+            <param name="from">base currency</param>    
+        </member>
+        <member name="M:TestApi.Controllers.IndexController.GetConvert(System.String,System.String,System.String)">
+            <summary>
+            convert any amount from one currency to another
+            </summary>
+            <param name="to">currency to convert </param>    
+            <param name="amount">amount to convert</param>    
+            <param name="from">base currency</param>    
+        </member>
+        <member name="M:TestApi.Controllers.IndexController.GetAverage(System.String,System.String)">
+            <summary>
+            Gets average rate from last 7 days
+            </summary>
+            <param name="to">currency to compare </param>            
+            <param name="from">base currency</param>    
+        </member>
+        <member name="M:TestApi.Controllers.IndexController.GetMaximum(System.String,System.String)">
+            <summary>
+            Gets maximum rate from last 7 days
+            </summary>
+            <param name="to">currency to compare </param>            
+            <param name="from">base currency</param>    
+        </member>
+        <member name="M:TestApi.Controllers.IndexController.GetMinimum(System.String,System.String)">
+            <summary>
+            Gets minimum rate from last 7 days
+            </summary>
+            <param name="to">currency to compare </param>            
+            <param name="from">base currency</param>    
+        </member>
+    </members>
+</doc>

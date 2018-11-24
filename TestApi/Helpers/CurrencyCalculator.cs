@@ -39,7 +39,7 @@ namespace TestApi.Helpers
             return rates.Min();
         }
 
-        public IEnumerable<CurrencyRateExchangeResponse> CalculateRates(Currency currency, decimal amount)
+        public IEnumerable<CurrencyRateExchangeResponse> CalculateAmountValues(Currency currency, decimal amount)
         {
             var CurrenciesList = new List<CurrencyRateExchangeResponse>();
 

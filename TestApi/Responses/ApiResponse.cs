@@ -11,6 +11,8 @@ namespace TestApi.Responses
         public string Base { get; set; }
         public DateTimeOffset Date { get; set; }
         public Dictionary<string, decimal> Rates { get; set; }
+        public bool Success { get; set; }
+        public ApiResponseError Error { get; set; }
 
 
     }
