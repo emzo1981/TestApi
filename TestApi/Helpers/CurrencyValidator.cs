@@ -16,6 +16,7 @@ namespace TestApi.Helpers
         }
         public bool Validate(string symbols )
         {            
+            
             NotAllowedCurrencySymbols = "";
             var _allowedCurrencies = AllowedCurrencies.Split(",").AsEnumerable<string>();
             var queryCurrencies = symbols.Split(",").AsEnumerable<string>();
