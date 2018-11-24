@@ -20,7 +20,6 @@ namespace TestApi.Services
         }
         public async Task<T> GetAsync<T>(Uri requestUrl)
         {
-
             var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();

@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TestApi.Helpers;
 using TestApi.Models;
+using TestApi.Responses;
 using TestApi.Services;
 
 
@@ -34,8 +35,11 @@ namespace TestApi
             services.AddScoped<IDataRepository, DataRepository>();
             services.AddScoped<IApiClient, ApiClient>();
             services.AddSingleton<ICurrencyValidator, CurrencyValidator>();
-
+            services.AddSingleton<ICurrencyCalculator, CurrencyCalculator>();
             
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,8 +55,9 @@ namespace TestApi
             }
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<FixerResponse, Currency > ()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Base));
+                cfg.CreateMap<ApiResponse, Currency > ()
+                .ForMember(dest => dest.Rates, opt => opt.MapFrom(src => src.Rates.Select(p => new Rate { Name = p.Key, RateValue = p.Value }).ToList()))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Base));           
             });
             app.UseHttpsRedirection();
             app.UseMvc(ConfigRoute);

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace TestApi.Models
 {
-    public class Currency
+    public class Rate
     {
+  
         public string Name { get; set; }
-        public List<Rate> Rates { get; set; }
-        public DateTimeOffset Date { get; set; }
+        public decimal RateValue { get; set; }
 
     }
 }

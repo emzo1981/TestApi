@@ -8,8 +8,8 @@ namespace TestApi.Services
 {
     public interface IDataRepository
     {
-        Task<Currency> GetConvertedCurrencies(string from, string to, string amount);
-        IEnumerable<Currency> GetHistoricalCurrencies(string symbols);
+        Task<Currency> GetLatest(string symbols,string from);
+        Task<List<Currency>> GetHistoricalValues(string symbols, string from);
 
 
 

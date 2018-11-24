@@ -3,6 +3,7 @@
     public interface ICurrencyValidator
     {
         bool Validate(string symbols);
-         
+        string GetNotAllowedCurrencySymbols();
+   
     }
 }
