@@ -35,7 +35,7 @@ namespace TestApi.Services
             var CurrencyList = new List<Currency>();
             for (int i = 1; i <= 7; i++)
             {
-                var result = await _apiClient.GetAsync<ApiResponse>(new Uri($"http://data.fixer1.io/api/{_date}?access_key={FixerKey}&symbols={to}&base={from}"));
+                var result = await _apiClient.GetAsync<ApiResponse>(new Uri($"http://data.fixer.io/api/{_date}?access_key={FixerKey}&symbols={to}&base={from}"));
                 var currency = Mapper.Map<Currency>(result);
                 CurrencyList.Add(currency);
                 _date = DateTime.Now.AddDays(-i).ToShortDateString();

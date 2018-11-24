@@ -29,8 +29,7 @@ namespace TestApi.Controllers
         // GET api/latest
         [HttpGet]
         [Route("api/latest")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
+  
         public async Task<IActionResult> GetLatest(string symbols,string amount,string from)
         {
             if (string.IsNullOrEmpty(from))
