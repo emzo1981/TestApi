@@ -3,43 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using TestApi.Helpers;
+using TestApi.Services;
 
 namespace TestApi.Controllers
-{
-    [Route("api/[controller]")]
+{  
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
+        private readonly IDataRepository _dataRepository;
+        private readonly ICurrencyValidator _currencyValidator;  
+        private readonly string AllowedCurrencies;
+        public ValuesController(IDataRepository dataRepository,ICurrencyValidator currencyValidator,IConfiguration configuraton)
+        {
+            _dataRepository = dataRepository;
+            _currencyValidator = currencyValidator;           
+            AllowedCurrencies = configuraton.GetValue<string>("AllowedCurrencies");
+        }
+        // GET api/latest
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [Route("api/convert")]
+        public async Task<IActionResult> Convert(string from,string to, string amount)
         {
-            return new string[] { "value1", "value2" };
+            if(string.IsNullOrEmpty(from))
+                return BadRequest(@"parameter From is missing");
+            if (string.IsNullOrEmpty(to))
+                return BadRequest(@"parameter To is missing");
+            if (string.IsNullOrEmpty(amount))
+                return BadRequest(@"parameter Amount is missing");
+            
+            if (!_currencyValidator.Validate(to))
+            {
+                return BadRequest(@"This symbol is not allowed : {to}");
+            }
+            if (!_currencyValidator.Validate(from))
+            {
+                return BadRequest(@"This symbol is not allowed : {from}");
+            }
+
+            
+                var Currency = await _dataRepository.GetCurrentCurrencies(from,to,amount);
+                return Ok(Currency);
+           
+            
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
     }
 }
